@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Best Shot | Free Golf Game</title>
+    <meta name="description"
+        content="Play Best Shot directly in your browser! A fun and challenging golf game. Also available on iOS and Android.">
+    <link rel="shortcut icon" href="/assets/logobestshot.png">
+    <link rel="stylesheet" href="/styles-noads.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="/" class="logo">
+                <img src="/assets/logobestshot.png" alt="Best Shot Logo">
+                <span>Best Shot</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Hero -->
+            <section class="hero">
+                <h1>🏌️ Play Best Shot</h1>
+                <p>Master your swing and conquer challenging courses. Play instantly in your browser!</p>
+            </section>
+
+            <!-- Game (no ads, no sidebars) -->
+            <section class="game-layout">
+                <!-- Center: Game + Banners -->
+                <div class="game-center">
+                    <div class="game-card">
+                        <div id="unity-container">
+                            <canvas id="unity-canvas" tabindex="-1"></canvas>
+                            <div id="unity-loading-bar">
+                                <div id="unity-logo"></div>
+                                <div id="unity-progress-bar-empty">
+                                    <div id="unity-progress-bar-full"></div>
+                                </div>
+                            </div>
+                            <div id="unity-warning"></div>
+                            <div id="unity-footer" style="display: none;">
+                                <div id="unity-build-title">Best Shot</div>
+                                <div id="unity-fullscreen-button"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>         
+            </section>
+
+            <!-- App Store Links -->
+            <section class="app-links">
+                <h2>Also available on mobile</h2>
+                <div class="store-buttons">
+                    <a href="https://play.google.com/store/apps/details?id=ca.briogolf.ca.holeinone" class="store-btn"
+                        target="_blank" rel="noopener">
+                        <img alt="Get it on Google Play" src="/assets/GetItOnGooglePlay.svg" width="135" height="40">
+                    </a>
+                    <a href="https://apps.apple.com/us/app/bestshot-io/id6753732764" class="store-btn" target="_blank"
+                        rel="noopener">
+                        <img alt="Download on the App Store" src="/assets/GetItOnAppStore.svg" width="120" height="40">
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 GWF Technologies Ltd. <span class="separator">|</span> <a href="https://bestshot.io">Best Shot</a> &
+            <a href="https://briogolf.ca" target="_blank">Brio Golf</a>
+        </p>
+        <p>6060 Silver Drive, Suite 300, Burnaby, British Columbia, Canada <span class="separator">|</span> <a
+                href="https://bestshot.io">Home</a> • <a href="https://bestshot.io/leaderboard">Leaderboard</a> • <a
+                href="https://bestshot.io/highlights">Highlights</a></p>
+        <p>Support & Legal <span class="separator">|</span> <a href="https://bestshot.io/faq">FAQ</a> • <a
+                href="https://bestshot.io/terms-of-service">Terms of Service</a> • <a
+                href="https://bestshot.io/privacy-policy">Privacy Policy</a> • <a
+                href="https://bestshot.io/data-deletion">Data Deletion</a></p>
+        <p>Join Our Community: <a href="https://discord.gg/3QKKYAaz" target="_blank">Discord</a> • <a
+                href="https://instagram.com/bestshot.io/" target="_blank">Instagram</a> • <a
+                href="https://tiktok.com/@bestshot.io" target="_blank">TikTok</a> • <a
+                href="https://youtube.com/@bestshotio" target="_blank">YouTube</a></p>
+    </footer>
+
+    <!-- Unity WebGL Loader -->
+    <script>
+      var canvas = document.querySelector("#unity-canvas");
+
+      // Shows a temporary message banner/ribbon for a few seconds, or
+      // a permanent error message on top of the canvas if type=='error'.
+      // If type=='warning', a yellow highlight color is used.
+      // Modify or remove this function to customize the visually presented
+      // way that non-critical warnings and error messages are presented to the
+      // user.
+      function unityShowBanner(msg, type) {
+        var warningBanner = document.querySelector("#unity-warning");
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/0600a5208ccc542c72a78884d98219df.loader.js";
+      var config = {
+        arguments: [],
+        dataUrl: buildUrl + "/712e74dda52eb670b7e645ca6e7ecf14.data.br",
+        frameworkUrl: buildUrl + "/17516630909fe1cf08193297c1f9408f.framework.js.br",
+        codeUrl: buildUrl + "/47d1c7252e8f8c8947e88db7a227e0fd.wasm.br",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Uprooted Software",
+        productName: "Best Shot",
+        productVersion: "1.4.2",
+        showBanner: unityShowBanner,
+        // errorHandler: function(err, url, line) {
+        //    alert("error " + err + " occurred at line " + line);
+        //    // Return 'true' if you handled this error and don't want Unity
+        //    // to process it further, 'false' otherwise.
+        //    return true;
+        // },
+      };
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const mesh_terrain = urlParams.get('mesh_terrain');
+      const date = urlParams.get('date');
+      const token = urlParams.get('token');
+
+      window.cb_GetCustomHoleMesh = () => {
+        return Boolean(mesh_terrain) ? mesh_terrain : ""
+      }
+
+      window.cb_GetCustomDate = () => {
+        return Boolean(date) ? date : ''
+      }
+
+      window.cb_GetToken = () => {
+        return Boolean(token) ? token : ''
+      }
+
+      // By default, Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
+
+      // If you would like all file writes inside Unity Application.persistentDataPath
+      // directory to automatically persist so that the contents are remembered when
+      // the user revisits the site the next time, uncomment the following line:
+      // config.autoSyncPersistentDataPath = true;
+      // This autosyncing is currently not the default behavior to avoid regressing
+      // existing user projects that might rely on the earlier manual
+      // JS_FileSystem_Sync() behavior, but in future Unity version, this will be
+      // expected to change.
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        document.querySelector("#unity-container").className = "unity-mobile";
+        canvas.className = "unity-mobile";
+
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
+
+
+      } 
+
+      document.querySelector("#unity-loading-bar").style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
+              }).then((unityInstance) => {
+                document.querySelector("#unity-loading-bar").style.display = "none";
+                document.querySelector("#unity-fullscreen-button").onclick = () => {
+                  unityInstance.SetFullscreen(1);
+                };
+
+              }).catch((message) => {
+                alert(message);
+              });
+            };
+
+      document.body.appendChild(script);
+
+    </script>
+
+
+</body>
+
+</html>
