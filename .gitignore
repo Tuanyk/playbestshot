@@ -1,3 +1,6 @@
 *.py
 Build/
 StreamingAssets/
+.vscode/
+.claude/
+.gemini/
