@@ -256,29 +256,34 @@ footer .separator {
 }
 
 /* ==================== RESPONSIVE ==================== */
-@media (max-width: 768px) {
-  .logo span {
-    font-size: 1rem;
+@media (max-width: 1024px) {
+  .game-layout {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .hero h1 {
-    font-size: 2rem;
-  }
-
-  .hero p {
-    font-size: 1rem;
-  }
-
-  #unity-container {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 9/16;
-    max-height: 80vh;
+  .game-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .game-card {
-    width: 100%;
-    padding: 10px;
+    padding: 0;
+  }
+
+  #unity-container {
+    width: min(100vw, calc(100dvh * 9 / 16));
+    height: min(100dvh, calc(100vw * 16 / 9));
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo span {
+    font-size: 1rem;
   }
 
   .store-btn {

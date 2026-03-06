@@ -27,7 +27,7 @@
     <main>
         <div class="container">
             <!-- Game (no ads, no sidebars) -->
-            <section class="game-layout">
+            <section class="game-layout" id="game-section">
                 <!-- Center: Game + Banners -->
                 <div class="game-center">
                     <div class="game-card">
@@ -203,6 +203,12 @@
             };
 
       document.body.appendChild(script);
+
+      if (window.innerWidth <= 1024) {
+        setTimeout(() => {
+          document.getElementById('game-section').scrollIntoView({ behavior: 'smooth' });
+        }, 1200);
+      }
 
     </script>
 
