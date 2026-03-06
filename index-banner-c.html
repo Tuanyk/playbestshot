@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Best Shot | Free Golf Game</title>
+    <meta name="description"
+        content="Play Best Shot directly in your browser! A fun and challenging golf game. Also available on iOS and Android.">
+    <link rel="shortcut icon" href="/assets/logobestshot.png">
+    <link rel="stylesheet" href="/styles-noads.css">
+    <style>
+        /* === BANNER C — Top Smart Banner === */
+        #app-banner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: rgba(27, 67, 50, 0.97);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 10px 14px;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(116, 198, 157, 0.2);
+            transform: translateY(-100%);
+            transition: transform 0.45s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+
+        #app-banner.visible {
+            transform: translateY(0);
+        }
+
+        #app-banner img.banner-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            flex-shrink: 0;
+        }
+
+        #app-banner .banner-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        #app-banner .banner-text strong {
+            display: block;
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #app-banner .banner-text span {
+            color: #74c69d;
+            font-size: 0.67rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        #app-banner .banner-cta {
+            background: #52b788;
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            padding: 7px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            flex-shrink: 0;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+
+        #app-banner .banner-cta:hover {
+            background: #40916c;
+        }
+
+        #app-banner .banner-dismiss {
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.8rem;
+            cursor: pointer;
+            flex-shrink: 0;
+            padding: 4px 4px 4px 6px;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        #app-banner .banner-dismiss:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Nudge page content down when banner is visible */
+        body.banner-open {
+            padding-top: 58px;
+        }
+
+        @media (max-width: 1024px) {
+            #app-banner {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="/" class="logo">
+                <img src="/assets/logobestshot.png" alt="Best Shot Logo">
+                <span>Best Shot</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Game (no ads, no sidebars) -->
+            <section class="game-layout" id="game-section">
+                <div class="game-center">
+                    <div class="game-card">
+                        <div id="unity-container">
+                            <canvas id="unity-canvas" tabindex="-1"></canvas>
+                            <div id="unity-loading-bar">
+                                <div id="unity-logo"></div>
+                                <div id="unity-progress-bar-empty">
+                                    <div id="unity-progress-bar-full"></div>
+                                </div>
+                            </div>
+                            <div id="unity-warning"></div>
+                            <div id="unity-footer" style="display: none;">
+                                <div id="unity-build-title">Best Shot</div>
+                                <div id="unity-fullscreen-button"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 GWF Technologies Ltd. <span class="separator">|</span> <a href="https://bestshot.io">Best Shot</a> &
+            <a href="https://briogolf.ca" target="_blank">Brio Golf</a>
+        </p>
+        <p>6060 Silver Drive, Suite 300, Burnaby, British Columbia, Canada <span class="separator">|</span> <a
+                href="https://bestshot.io">Home</a> • <a href="https://bestshot.io/leaderboard">Leaderboard</a> • <a
+                href="https://bestshot.io/highlights">Highlights</a></p>
+        <p>Support & Legal <span class="separator">|</span> <a href="https://bestshot.io/faq">FAQ</a> • <a
+                href="https://bestshot.io/terms-of-service">Terms of Service</a> • <a
+                href="https://bestshot.io/privacy-policy">Privacy Policy</a> • <a
+                href="https://bestshot.io/data-deletion">Data Deletion</a></p>
+        <p>Join Our Community: <a href="https://discord.gg/3QKKYAaz" target="_blank">Discord</a> • <a
+                href="https://instagram.com/bestshot.io/" target="_blank">Instagram</a> • <a
+                href="https://tiktok.com/@bestshot.io" target="_blank">TikTok</a> • <a
+                href="https://youtube.com/@bestshotio" target="_blank">YouTube</a></p>
+    </footer>
+
+    <!-- Banner C — Top Smart Banner -->
+    <div id="app-banner">
+        <img class="banner-logo" src="/assets/logobestshot.png" alt="Best Shot">
+        <div class="banner-text">
+            <strong>Best Shot Golf</strong>
+            <span>Free on iOS &amp; Android</span>
+        </div>
+        <a href="https://apps.apple.com/us/app/bestshot-io/id6753732764" class="banner-cta" target="_blank" rel="noopener">Get App</a>
+        <span class="banner-dismiss" id="banner-dismiss">✕</span>
+    </div>
+
+    <!-- Unity WebGL Loader -->
+    <script>
+      var canvas = document.querySelector("#unity-canvas");
+
+      function unityShowBanner(msg, type) {
+        var warningBanner = document.querySelector("#unity-warning");
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+        }
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
+        }
+        updateBannerVisibility();
+      }
+
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/0600a5208ccc542c72a78884d98219df.loader.js";
+      var config = {
+        arguments: [],
+        dataUrl: buildUrl + "/712e74dda52eb670b7e645ca6e7ecf14.data.br",
+        frameworkUrl: buildUrl + "/17516630909fe1cf08193297c1f9408f.framework.js.br",
+        codeUrl: buildUrl + "/47d1c7252e8f8c8947e88db7a227e0fd.wasm.br",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Uprooted Software",
+        productName: "Best Shot",
+        productVersion: "1.4.2",
+        showBanner: unityShowBanner,
+      };
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const mesh_terrain = urlParams.get('mesh_terrain');
+      const date = urlParams.get('date');
+      const token = urlParams.get('token');
+
+      window.cb_GetCustomHoleMesh = () => Boolean(mesh_terrain) ? mesh_terrain : "";
+      window.cb_GetCustomDate = () => Boolean(date) ? date : '';
+      window.cb_GetToken = () => Boolean(token) ? token : '';
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        document.querySelector("#unity-container").className = "unity-mobile";
+        canvas.className = "unity-mobile";
+      }
+
+      document.querySelector("#unity-loading-bar").style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          document.querySelector("#unity-loading-bar").style.display = "none";
+          document.querySelector("#unity-fullscreen-button").onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+
+      document.body.appendChild(script);
+
+      if (window.innerWidth <= 1024) {
+        // Scroll game canvas to center of viewport
+        setTimeout(() => {
+          document.getElementById('unity-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 1200);
+
+        // Slide down banner after scroll settles
+        setTimeout(() => {
+          const banner = document.getElementById('app-banner');
+          banner.classList.add('visible');
+          document.body.classList.add('banner-open');
+        }, 3500);
+
+        document.getElementById('banner-dismiss').addEventListener('click', () => {
+          const banner = document.getElementById('app-banner');
+          banner.style.transition = 'transform 0.35s ease';
+          banner.style.transform = 'translateY(-100%)';
+          document.body.classList.remove('banner-open');
+          setTimeout(() => banner.style.display = 'none', 350);
+        });
+      }
+    </script>
+
+</body>
+
+</html>
